@@ -1,0 +1,105 @@
+[
+    {
+        "id": "e39b6f96.b2225",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "59e6fa47.0d83b4",
+        "type": "function",
+        "z": "e39b6f96.b2225",
+        "name": "Fields",
+        "func": "var tokens = msg.topic.split(\"/\");\nvar n = tokens.length\nvar measurement = tokens[n-1]\nvar value = msg.payload\nvar plantType = tokens[n-2]\nvar room = tokens[n-3]\nvar proj = tokens[n-4]\nif(measurement == \"temperature\"){\nmsg.payload = [{\n    Temperature: value\n},\n{\n    project: proj,\n    plant: plantType,\n    location: room\n}];\n}\nelse if(measurement == \"humidity\"){\nmsg.payload = [{\n    Humidity: value\n},\n{\n    project: proj,\n    plant: plantType,\n    location: room\n}];\n}\nelse if(measurement == \"lightLevel\"){\nmsg.payload = [{\n    Light: value\n},\n{\n    project: proj,\n    plant: plantType,\n    location: room\n}];\n}\nif(measurement == \"moisture\"){\nmsg.payload = [{\n    Moisture: value\n},\n{\n    project: proj,\n    plant: plantType,\n    location: room\n}];\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 290,
+        "y": 120,
+        "wires": [
+            [
+                "35e41dae.56d2a2",
+                "3dd1d676.1846da"
+            ]
+        ]
+    },
+    {
+        "id": "3dd1d676.1846da",
+        "type": "influxdb out",
+        "z": "e39b6f96.b2225",
+        "influxdb": "8cc842f7.87ff2",
+        "name": "",
+        "measurement": "Monitor",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 660,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "35e41dae.56d2a2",
+        "type": "debug",
+        "z": "e39b6f96.b2225",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "x": 370,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "431b1cc4.9375b4",
+        "type": "mqtt in",
+        "z": "e39b6f96.b2225",
+        "name": "",
+        "topic": "grow/#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "6922d6fd.250378",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "59e6fa47.0d83b4"
+            ]
+        ]
+    },
+    {
+        "id": "8cc842f7.87ff2",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "127.0.0.1",
+        "port": "8086",
+        "protocol": "http",
+        "database": "test",
+        "name": "",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "6922d6fd.250378",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "",
+        "broker": "127.0.0.1",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": false,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]
