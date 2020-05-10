@@ -16,13 +16,13 @@ Influxdb influx(INFLUXDB_HOST);
 DHT dht(DHTpin, DHTTYPE); //Refer to DHT as dht here on out with DHTpin and Type noted
 
 // MQTT
-const char* mqtt_server = "10.0.0.16";  // IP of the MQTT broker
+const char* mqtt_server = "X.X.X.X";  // IP of the MQTT broker
 const char* humidity_topic = "grow/bedroom/all/humidity";
 const char* temperature_topic = "grow/bedroom/all/temperature";
 const char* lightlevel_topic = "grow/bedroom/all/lightLevel";
 const char* plsoilmoisture_topic = "grow/bedroom/peacelilly/moisture";
-const char* mqtt_username = "echo"; // MQTT username
-const char* mqtt_password = "echo"; // MQTT password
+const char* mqtt_username = "X.X.X.X"; // MQTT username
+const char* mqtt_password = "X.X.X.X"; // MQTT password
 const char* clientID = "growmon"; // MQTT client ID
 
 // Initialise the WiFi and MQTT Client objects
@@ -31,8 +31,8 @@ WiFiClient wifiClient;
 PubSubClient client(mqtt_server, 1883, wifiClient); 
 
 // WiFi
-char* ssid = "House Stark";                 // Your personal network SSID
-const char* wifi_password = "Th1515H0u535t@rk"; // Your personal network password
+char* ssid = "X.X.X.X";                 // Your personal network SSID
+const char* wifi_password = "X.X.X.X"; // Your personal network password
 
 // Custom function to connet to the MQTT broker via WiFi
 void connect_MQTT(){
